@@ -8,31 +8,40 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
+import java.io.File;
+
 public class GridView extends GridPane {
-    private Button nextButton,startButton,stopButton,loadButton,saveButton;
+    private Button nextButton,startButton,stopButton;
     private TextField cycleField,delayField;
-    private Canvas canvas;
+    public Canvas canvas;
+    private SnapshotWriter sp;
 
     public GridView() {
         this.setAlignment(Pos.CENTER);
-        this.setVgap(5);
+        this.setVgap(8);
         this.setHgap(5);
 
         this.nextButton = new Button("Next");
+        this.nextButton.setOnMouseClicked(ae -> {
+            //wywolanie cyklu
+
+        });
         this.add(nextButton,1,4);
 
         this.startButton = new Button("Start");
+        this.startButton.setOnMouseClicked(ae ->{
+            //cokolwiek robi start
+            setAlive(10,10,Color.RED,10);
+        });
         this.add(startButton,3,4);
 
         this.stopButton = new Button("Stop");
+        this.stopButton.setOnMouseClicked(ex ->{
+
+        });
         this.add(stopButton,4,4);
 
-        this.loadButton = new Button("Load");
-        this.add(loadButton,4,2);
 
-
-        this.saveButton = new Button("Save");
-        this.add(saveButton,4,3);
 
         this.cycleField = new TextField();
         this.cycleField.setMaxWidth(50);
@@ -54,9 +63,9 @@ public class GridView extends GridPane {
         gC.setFill(Color.LIGHTGRAY);
         gC.fillRect(0,0,450,450);
     }
-    public void setAlive(int x,int y, int s){
+    private void setAlive(int x,int y,Color color ,int scale){
         GraphicsContext gC = this.canvas.getGraphicsContext2D();
-        gC.setFill(Color.BLACK);
-        gC.fillRect(x,y,1*s,1*s);
+        gC.setFill(color);
+        gC.fillRect(x,y,scale,scale);
     }
 }
