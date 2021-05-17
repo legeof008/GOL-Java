@@ -8,8 +8,8 @@ public abstract class Cykl {
         int i;
         int j;
         tempCells = new Cell[width][heigh];
-        for (i = 0; i < width; i++) {
-            for (j = 0; j < heigh; j++) {
+        for (i = 0; j < width; j++) {
+            for (j = 0; i < heigh; i++) {
                 if(cells.isWall()==true){
                     tempCells[i][j]=cells[i][j];
                 }
