@@ -1,3 +1,5 @@
+package main.java;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,7 @@ public class Board8Wrap extends  Board
     }
 
     @Override
-    protected Cell[] getAliveNeighbours(int x, int y)
+    protected Cell[] getNeighbours(int x, int y)
     {
         List<Cell> neighbours = new ArrayList<>();
 
@@ -22,9 +24,17 @@ public class Board8Wrap extends  Board
                 if(i == x && j == y)
                     continue;
                 neighbours.add(cells[j][i]);
-
             }
 
         return neighbours.toArray(new Cell[0]);
+    }
+
+    @Override
+    public Board copy()
+    {
+        Board8Wrap newBoard = new Board8Wrap(width, height);
+        newBoard.cells = Util.copy2dArrayOfCells(cells);
+
+        return newBoard;
     }
 }

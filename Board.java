@@ -1,5 +1,8 @@
+package main.java;
+
+import java.util.ArrayList;
 import java.util.Random;
-import javafx.util.Pair;
+//import javafx.util.Pair;
 
 public abstract class Board
 {
@@ -15,6 +18,11 @@ public abstract class Board
 
         cells = new Cell[height][width];
     }
+
+    /**
+     * Tworzy i zwraca głęboką kopię planszy
+     */
+    public abstract Board copy();
 
     /**
      * @return true jeżeli na planszy nie znajduje się żadna żywa komórka
@@ -43,6 +51,7 @@ public abstract class Board
 
     /**
      * Tworzy nową komórkę z podanych parametrów i ustawia ją w pozycji x, y.
+     * Jeżeli tworzona komórka jest żywa, zwiększa ilość sąsiadów komórkom na kooło
      * Ta metoda powinna być używana tylko przy początkowym tworzeniu planszy;
      * Do tworzenia nowych komórek między cyklami lepiej jest użyć <code>makeCellAlive()</code>
      * @param x pozycja x komórki w tablicy
@@ -54,7 +63,10 @@ public abstract class Board
      */
     public void setCell(int x, int y, int r, int g, int b, CellType cellType)
     {
-        cells[y][x] = new Cell(r, g, b, cellType);
+        cells[y][x] = new Cell(r, g, b, cellType, cells[y][x].getNeighbourCount());
+
+        if(cells[y][x].isAlive())
+            incrementNeighbours(x, y);
     }
 
     /**
@@ -62,9 +74,9 @@ public abstract class Board
      * @param x pozycja x komórki
      * @param y pozycja y komórki
      */
-    public void addNeighbourParameter(int x, int y)
+    public void incrementNeighbours(int x, int y)
     {
-        Cell[] neighbours = getAliveNeighbours(x, y);
+        Cell[] neighbours = getNeighbours(x, y);
 
         for (Cell c : neighbours)
             c.addNeighbour();
@@ -72,7 +84,7 @@ public abstract class Board
 
     /**
      * @param x pozycja x komórki
-     * @param y pozycjia y komórki
+     * @param y pozycja y komórki
      * @return liczba siąsiadów komórki znajdującej się na pozycji x, y
      */
     public int getCellNeighbourCount(int x, int y)
@@ -86,10 +98,14 @@ public abstract class Board
      * Liczba sąsiadów zostanie skopiowana z poprzedniej komórki znajdującej się na pozycji x, y
      * @param x pozycja x komórki do ożywienia
      * @param y pozycja y komórki do ożywienia
+     * @param board plansza z początku cyklu
      */
-    public void makeCellAlive(int x, int y)
+    /*public void makeCellAlive(int x, int y, Board board)
     {
-        Pair<Cell, Cell> parents = getParents(x, y);
+        if(board == null || board.width != width || board.height != height)
+            throw new IllegalArgumentException("wymiary planszy z początku cyklu nie są zgodne z obecną planszą");
+
+        Pair<Cell, Cell> parents = board.getParents(x, y);
 
         int newRColor = parents.getKey().r;
         int newGColor = parents.getKey().g;
@@ -123,9 +139,69 @@ public abstract class Board
         }
 
         cells[y][x] = new Cell(newRColor, newGColor, newBColor, CellType.Alive, cells[y][x].getNeighbourCount());
+        addNeighbourParameter(x, y);
+    }*/
+    public void makeCellAlive(int x, int y, Board board)
+    {
+        Cell[] parents = board.getParents(x, y);
+
+        int newRColor = parents[0].getR();
+        int newGColor = parents[0].getG();
+        int newBColor = parents[0].getB();
+
+        int[] bitIndices = new int[3];
+
+        // Losowanie 3 losowych liczb z zakresu <0, 24> bez powtórzeń
+        Random rnd = new Random();
+        bitIndices[0] = rnd.nextInt(24);
+
+        do
+        {
+            bitIndices[1] = rnd.nextInt(24);
+        } while (bitIndices[1] == bitIndices[0]);
+
+        do
+        {
+            bitIndices[2] = rnd.nextInt(24);
+        } while (bitIndices[2] == bitIndices[1] || bitIndices[2] == bitIndices[0]);
+
+        // Dodawanie kolorów 2 rodzica do kolorów nowej komórki
+        for(int i = 0; i < 3; i++)
+        {
+            if(bitIndices[i] < 8)
+                newBColor += (Util.getBit(parents[1].getB(), bitIndices[i]) - Util.getBit(newBColor, bitIndices[i])) << bitIndices[i];
+            else if (bitIndices[i] < 16)
+                newGColor += (Util.getBit(parents[1].getG(), bitIndices[i]) - Util.getBit(newGColor, bitIndices[i])) << (bitIndices[i] % 8);
+            else
+                newRColor += (Util.getBit(parents[1].getR(), bitIndices[i]) - Util.getBit(newRColor, bitIndices[i])) << (bitIndices[i] % 8);
+        }
+
+        cells[y][x] = new Cell(newRColor, newGColor, newBColor, CellType.Alive, cells[y][x].getNeighbourCount());
+        incrementNeighbours(x, y);
     }
 
-    protected Pair<Cell, Cell> getParents(int x, int y)
+    /*private Pair<Cell, Cell> getParents(int x, int y)
+    {
+        Cell[] neighbours = getNeighbours(x, y);
+
+        if(neighbours.length < 2)
+            throw new RuntimeException(String.format("komórka na pozycji %d, %d nie posiada 2 żywych sąsiadów", x, y));
+
+        int[] parentsIndices = new int[2];
+
+        // Losowanie 2 losowych liczb odpowiadjących indeksom rodziców
+        Random rnd = new Random();
+        parentsIndices[0] = rnd.nextInt(neighbours.length);
+
+        do
+        {
+            parentsIndices[1] = rnd.nextInt(neighbours.length);
+        } while (parentsIndices[1] == parentsIndices[0]);
+
+
+        return new Pair<Cell, Cell>(neighbours[parentsIndices[0]], neighbours[parentsIndices[1]]);
+    }*/
+    private Cell[] getParents(int x, int y)
     {
         Cell[] neighbours = getAliveNeighbours(x, y);
 
@@ -144,29 +220,61 @@ public abstract class Board
         } while (parentsIndices[1] == parentsIndices[0]);
 
 
-        return new Pair<Cell, Cell>(neighbours[parentsIndices[0]], neighbours[parentsIndices[1]]);
+        return new Cell[]{neighbours[parentsIndices[0]], neighbours[parentsIndices[1]]};
     }
 
-    protected Cell[] getAliveNeighbours(int x, int y)
+    private Cell[] getAliveNeighbours(int x, int y)
     {
-        throw new UnsupportedOperationException("Nie powinno się to stać");
+        ArrayList<Cell> aliveNeighbours = new ArrayList<>();
+        Cell[] neighbours = getNeighbours(x, y);
+
+        for(Cell c : neighbours)
+        {
+            if(c.isAlive())
+                aliveNeighbours.add(c);
+        }
+
+        return aliveNeighbours.toArray(new Cell[0]);
     }
+
+    protected abstract Cell[] getNeighbours(int x, int y);
+
+    /**
+     * Zabija daną komórkę (zmienia typ na CellType.Dead oraz zmienia kolor na czarny)
+     * @param x pozycja x komórki
+     * @param y pozycja y komórki
+     */
+    public void killCell(int x, int y)
+    {
+        cells[y][x] = new Cell(cells[y][x].getNeighbourCount());
+
+        Cell[] neighbours = getNeighbours(x, y);
+
+        for(Cell c : neighbours)
+            c.substractNeighbour();
+    }
+
 
     // TODO: Tylko do testowania; w normalnym działaniu programu plansza powinna być tworzona z pliku
     public void populateCells()
     {
         for(int j = 0; j < height; j++)
             for(int i = 0; i < width; i++)
-                cells[j][i] = new Cell(0,0 ,0);
+                cells[j][i] = new Cell();
     }
 
     // TODO: Tylko do testowania
-    public void writeNeighbours()
+    public void writeInfo()
     {
         for(int j = 0; j < height; j++)
         {
             for(int i = 0; i < width; i++)
-                System.out.printf("%d ", cells[j][i].getNeighbourCount());
+                System.out.printf("%d", cells[j][i].getNeighbourCount());
+
+            System.out.print('\t');
+
+            for(int i = 0; i < width; i++)
+                System.out.printf("%c ", cells[j][i].isAlive()?'*':cells[j][i].isWall()?'Ø':'.');
             System.out.println();
         }
     }

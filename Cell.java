@@ -1,3 +1,5 @@
+package main.java;
+
 public class Cell
 {
    private final int r;
@@ -13,6 +15,12 @@ public class Cell
    {
        this(0, 0, 0, CellType.Dead);
    }
+
+   public Cell(int neighbourCount)
+   {
+       this(0, 0, 0, CellType.Dead, neighbourCount);
+   }
+
     /**
      * Tworzy nową komórkę z podanymi parametrami. Typ komórki jest ustawiany na CellType.Alive.
      * Liczba sąsiadów jest ustawiana na 0
@@ -24,6 +32,7 @@ public class Cell
    {
        this(r, g, b, CellType.Alive);
    }
+
     /**
      * Tworzy nową komórkę z podanymi parametrami. Liczba sąsiadów jest ustawiana na 0
      * @param r składowa R koloru komórki. Musi należeć do przedziału <0, 255>
@@ -53,6 +62,19 @@ public class Cell
         this.neighbourCount = neighbourCount;
     }
 
+    /**
+     * Klonuje podaną komórkę
+     * @param cell komórka źródłowa
+     */
+    public Cell(Cell cell)
+    {
+        r = cell.r;
+        g = cell.g;
+        b = cell.b;
+        cellType = cell.cellType;
+        neighbourCount = cell.neighbourCount;
+    }
+
     public int getR()
     {
         return r;
@@ -74,6 +96,13 @@ public class Cell
     public void addNeighbour()
     {
         neighbourCount++;
+    }
+
+    public void substractNeighbour()
+    {
+        neighbourCount--;
+        if(neighbourCount < 0)
+            throw new IllegalStateException("Komórka posiada ujemną ilość sąsiadów");
     }
 
     public int getNeighbourCount()
