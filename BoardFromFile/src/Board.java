@@ -15,6 +15,10 @@ public abstract class Board
         this.height = height;
 
         cells = new Cell[height][width];
+
+        for(int j = 0; j < height; j++)
+            for(int i = 0; i < width; i++)
+                cells[j][i] = new Cell();
     }
 
     /**

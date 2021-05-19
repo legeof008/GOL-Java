@@ -2,118 +2,212 @@ import java.io.*;
 
 public class FirstBoard {
 
+    //TODO do ustalenia maksymalne wartości
     private static final int MAXHEIGHT = 1000;
     private static final int MAXWIDTH = 1000;
 
-    public static Board readBoard(String filePath) throws IOException {
+    /**
+     * @param f plik z parametrami wejściowymi
+     * @return plansza startowa zgodna z parametrami wejściowymi
+     */
+    public static Board readBoard(File f) throws IOException, CellParametersException, BoardParametersException {
 
-        File f = new File(filePath);
         FileReader fr = new FileReader(f);
         BufferedReader br = new BufferedReader(fr);
+        Board board;
 
-        Board board = null;
-
-        //
-        //Czytamy pierwszą linię z wielkością planszy, parametrami sąsiedztwa i zawijania.
-        //
+        /*
+         * Czytamy pierwszą linię z parametrami sąsiedztwa i zawijania oraz rozmiarami planszy.
+         */
 
         String line = br.readLine();
         String[] words = line.split("\\s+");
 
-        int neighbors = Integer.parseInt(words[0]);
-        if(neighbors != 4 && neighbors != 8){
-            throw new NumberFormatException("Nieprawidłowy parametr sąsiedztwa");
-        }
-        int foldType = Integer.parseInt(words[1]);
-        if(foldType != 1 && foldType != 0)
-            throw new NumberFormatException("Nieprawidłowy parametr zawijania");
+        if (words.length != 4)
+            throw new BoardParametersException("Nieprawidłowo podane parametry planszy");
 
-        int w = Integer.parseInt(words[2]);
-        if(w <= 0 || w > MAXWIDTH){
-            throw new NumberFormatException("Nieprawidłowa szerokość planszy");
-        }
-        int h = Integer.parseInt(words[3]);
-        if(h <= 0 || h > MAXHEIGHT){
-            throw new NumberFormatException("Nieprawidłowa wysokość planszy");
+        int neighborsType = Integer.parseInt(words[0]);
+        if (!isCorrectNeighborsType(neighborsType))
+            throw new BoardParametersException("Nieprawidłowy parametr sąsiedztwa");
+        int foldType = Integer.parseInt(words[1]);
+        if (!isCorrectFoldType(foldType))
+            throw new BoardParametersException("Nieprawidłowy parametr zawijania");
+
+        int width = Integer.parseInt(words[2]);
+        int height = Integer.parseInt(words[3]);
+        if (!isCorrectSizeOfBoard(width, height)) {
+            throw new BoardParametersException("Nieprawidłowe wymiary planszy");
         }
 
         //Tworzymy odpowiednią planszę
-        if(neighbors == 4 && foldType == 0){
-            board = new Board4(w, h);
-        }
-        else if(neighbors == 4 && foldType == 1){
-            board = new Board4Wrap(w, h);
-        }
-        else if(neighbors == 8 && foldType == 0){
-            board = new Board8(w, h);
-        }
-        else{
-            board = new Board8Wrap(w, h);
-        }
+        board = createBoard(neighborsType, foldType, width, height);
 
-        //
-        //Czytamy parametry poszczególnych komórek
-        //
+        /*
+         * Czytamy parametry poszczególnych komórek
+         */
 
-        while((line = br.readLine()) != null){
+        while ((line = br.readLine()) != null) {
             words = line.split("\\s+");
 
-            if(words.length != 6)
-                continue;
+            //TODO czy dobry rodzaj wyjątku?
+            if (words.length != 6)
+                throw new CellParametersException("Nieprawidłowo podane parametry komórek");
 
             int x = Integer.parseInt(words[0]);
-            if(x < 0 || x >= w)
-                throw new NumberFormatException("Nieprawidłowe współrzędne komórek");
-
             int y = Integer.parseInt(words[1]);
-            if(y< 0 || y >= h)
-                throw new NumberFormatException("Nieprawidłowe współrzędne komórek");
-
             int cellType = Integer.parseInt(words[2]);
-            if(cellType != 0 && cellType != 1 && cellType != 2)
-                throw new NumberFormatException("Nieprawidłowy typ komórek");
-
-            CellType ct;
-            if(cellType == 0)
-                ct = CellType.Dead;
-            else if(cellType == 1)
-                ct = CellType.Alive;
-            else
-                ct = CellType.Wall;
-
             int R = Integer.parseInt(words[3]);
-            if(R < 0 || R > 255)
-                throw new NumberFormatException("Nieprawidłowe wparametry RGB");
-
             int G = Integer.parseInt(words[4]);
-            if(G < 0 || G > 255)
-                throw new NumberFormatException("Nieprawidłowe wparametry RGB");
-
             int B = Integer.parseInt(words[5]);
-            if(B < 0 || B > 255)
-                throw new NumberFormatException("Nieprawidłowe wparametry RGB");
 
+            if (!isCorrectCellParameters(width, height, x, y, cellType, R, G, B))
+                throw new CellParametersException("Nieprawidłowe wartości parametrów komórki");
+
+            //Ustalamy typ komórki
+            CellType ct = typeOfCell(cellType);
+
+            //Dodajemy komórkę do planszy
             board.setCell(x, y, R, G, B, ct);
 
-            //System.out.println(x + " " + y + " " + cellType + " " + R + " " + G + " " + B);
         }
         return board;
     }
 
+    /**
+     * @param neighborsType typ sąsiedztwa - 4 lub 8
+     * @param foldType      zawijanie - 1 zawija lub 0 brak zawijania
+     * @param width         szerokość planszy
+     * @param height        wysokość planszy
+     * @return odpowiedni rodzaj planszy startowego zależny od parametrów wejściowych
+     */
+    private static Board createBoard(int neighborsType, int foldType, int width, int height) {
+        Board board;
+
+        if (neighborsType == 4 && foldType == 0) {
+            board = new Board4(width, height);
+        } else if (neighborsType == 4) {
+            board = new Board4Wrap(width, height);
+        } else if (foldType == 0) {
+            board = new Board8(width, height);
+        } else {
+            board = new Board8Wrap(width, height);
+        }
+        return board;
+    }
+
+    /**
+     * @return true jeżeli typ sąsiedztwa został prawidłowo podany (wartość 4 lub 8)
+     */
+    private static boolean isCorrectNeighborsType(int neighborsType) {
+        boolean isCorrect = true;
+
+        if (neighborsType != 4 && neighborsType != 8)
+            isCorrect = false;
+
+        return isCorrect;
+    }
+
+    /**
+     * @return true jeżeli typ zawijania został prawidłowo podany (wartość 1 lub 0)
+     */
+    private static boolean isCorrectFoldType(int foldType) {
+        boolean isCorrect = true;
+
+        if (foldType != 1 && foldType != 0)
+            isCorrect = false;
+
+        return isCorrect;
+    }
+
+    /**
+     * @return true jeżeli podano prawidłowe wymiary planszy
+     */
+    private static boolean isCorrectSizeOfBoard(int width, int height) {
+        boolean isCorrect = true;
+
+        if (width <= 0 || width > MAXWIDTH || height <= 0 || height > MAXHEIGHT)
+            isCorrect = false;
+
+        return isCorrect;
+    }
+
+    /**
+     * @return true jeżeli podano prawidłowe parametry komórki
+     */
+    private static boolean isCorrectCellParameters(int boardWidth, int boardHeight, int x, int y, int cellType, int R, int G, int B) {
+        boolean isCorrect = true;
+
+        if (x < 0 || x >= boardWidth || y < 0 || y >= boardHeight)
+            isCorrect = false;
+
+        if (cellType != 0 && cellType != 1 && cellType != 2)
+            isCorrect = false;
+
+        if (R < 0 || R > 255 || G < 0 || G > 255 || B < 0 || B > 255)
+            isCorrect = false;
+
+        return isCorrect;
+    }
+
+    /**
+     * @param typeNumber typ komórki określony za pomocą cyfry 0, 1 lub 2
+     * @return odpowiedni typ komórki
+     */
+    private static CellType typeOfCell(int typeNumber) {
+        CellType ct;
+
+        if (typeNumber == 0)
+            ct = CellType.Dead;
+        else if (typeNumber == 1)
+            ct = CellType.Alive;
+        else
+            ct = CellType.Wall;
+
+        return ct;
+    }
+}
+
+/* Przykładowe użycie - na moje potrzeby
+
     public static void main(String[] args) {
+
         Board b = null;
+        File f = new File("testdata/data.1");
 
         try {
-             b = FirstBoard.readBoard("testdata/data.1");
+             b = FirstBoard.readBoard(f);
 
-        }catch(IOException e){
+        }catch(IOException | CellParametersException | BoardParametersException e){
             System.err.println(e.getLocalizedMessage());
         }catch(NumberFormatException e){
-            System.err.println(e.getLocalizedMessage());
+            System.err.println("Śmieci na wejściu");
         }
 
         if(b == null){
             System.out.println("Mamy nulla");
         }
+        else{
+            int x = 0;
+            int y = 4;
+            System.out.println("R: " + b.getCell(x,y).getR() + " G: "
+                    + b.getCell(x,y).getG() + " B: " + b.getCell(x,y).getB()
+                    + " czy żywa: " + b.getCell(x,y).isAlive() + " czy ściana: "
+                    + b.getCell(x,y).isWall());
+
+            x = 1;
+            y = 1;
+            System.out.println("R: " + b.getCell(x,y).getR() + " G: "
+                    + b.getCell(x,y).getG() + " B: " + b.getCell(x,y).getB()
+                    + " czy żywa: " + b.getCell(x,y).isAlive());
+
+            x = 1;
+            y = 0;
+            System.out.println("R: " + b.getCell(x,y).getR() + " G: "
+                    + b.getCell(x,y).getG() + " B: " + b.getCell(x,y).getB()
+                    + " czy żywa: " + b.getCell(x,y).isAlive() + " czy ściana: "
+                    + b.getCell(x,y).isWall());
+        }
     }
 }
+
+ */
