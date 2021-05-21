@@ -1,3 +1,4 @@
+package main.java;
 
 public class Cell
 {
@@ -21,7 +22,7 @@ public class Cell
     }
 
     /**
-     * Tworzy nową komórkę z podanymi parametrami. Typ komórki jest ustawiany na CellType.Alive.
+     * Tworzy nową komórkę z podanymi parametrami. Typ komórki jest ustawiany na main.java.CellType.Alive.
      * Liczba sąsiadów jest ustawiana na 0
      * @param r składowa R koloru komórki. Musi należeć do przedziału <0, 255>
      * @param g składowa G koloru komórki. Musi należeć do przedziału <0, 255>

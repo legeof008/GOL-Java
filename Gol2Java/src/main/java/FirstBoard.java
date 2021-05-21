@@ -1,3 +1,5 @@
+package main.java;
+
 import java.io.*;
 
 public class FirstBoard {
@@ -163,19 +165,18 @@ public class FirstBoard {
 
         return ct;
     }
-}
 
-/* Przykładowe użycie - na moje potrzeby
-
+//Przykładowe użycie - na moje potrzeby
+/*
     public static void main(String[] args) {
 
-        Board b;
-        File f = new File("testdata/data.1");
+        main.java.Board b = null;
+        File f = new File("Database/data.1");
 
         try {
-             b = FirstBoard.readBoard(f);
+             b = main.java.FirstBoard.readBoard(f);
 
-        }catch(IOException | CellParametersException | BoardParametersException e){
+        }catch(IOException | main.java.CellParametersException | main.java.BoardParametersException e){
             System.err.println(e.getLocalizedMessage());
         }catch(NumberFormatException e){
             System.err.println("Śmieci na wejściu");
@@ -206,6 +207,7 @@ public class FirstBoard {
                     + b.getCell(x,y).isWall());
         }
     }
+*/
 }
 
- */
+

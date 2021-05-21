@@ -1,3 +1,5 @@
+package main.java;
+
 import java.util.ArrayList;
 import java.util.Random;
 //import javafx.util.Pair;
@@ -102,12 +104,12 @@ public abstract class Board
      * @param y pozycja y komórki do ożywienia
      * @param board plansza z początku cyklu
      */
-    /*public void makeCellAlive(int x, int y, Board board)
+    /*public void makeCellAlive(int x, int y, main.java.Board board)
     {
         if(board == null || board.width != width || board.height != height)
             throw new IllegalArgumentException("wymiary planszy z początku cyklu nie są zgodne z obecną planszą");
 
-        Pair<Cell, Cell> parents = board.getParents(x, y);
+        Pair<main.java.Cell, main.java.Cell> parents = board.getParents(x, y);
 
         int newRColor = parents.getKey().r;
         int newGColor = parents.getKey().g;
@@ -133,14 +135,14 @@ public abstract class Board
         for(int i = 0; i < 3; i++)
         {
             if(bitIndices[i] < 8)
-                newBColor += (Util.getBit(parents.getValue().b, bitIndices[i]) - Util.getBit(newBColor, bitIndices[i])) << bitIndices[i];
+                newBColor += (main.java.Util.getBit(parents.getValue().b, bitIndices[i]) - main.java.Util.getBit(newBColor, bitIndices[i])) << bitIndices[i];
             else if (bitIndices[i] < 16)
-                newGColor += (Util.getBit(parents.getValue().g, bitIndices[i]) - Util.getBit(newGColor, bitIndices[i])) << (bitIndices[i] % 8);
+                newGColor += (main.java.Util.getBit(parents.getValue().g, bitIndices[i]) - main.java.Util.getBit(newGColor, bitIndices[i])) << (bitIndices[i] % 8);
             else
-                newRColor += (Util.getBit(parents.getValue().r, bitIndices[i]) - Util.getBit(newRColor, bitIndices[i])) << (bitIndices[i] % 8);
+                newRColor += (main.java.Util.getBit(parents.getValue().r, bitIndices[i]) - main.java.Util.getBit(newRColor, bitIndices[i])) << (bitIndices[i] % 8);
         }
 
-        cells[y][x] = new Cell(newRColor, newGColor, newBColor, CellType.Alive, cells[y][x].getNeighbourCount());
+        cells[y][x] = new main.java.Cell(newRColor, newGColor, newBColor, main.java.CellType.Alive, cells[y][x].getNeighbourCount());
         addNeighbourParameter(x, y);
     }*/
     public void makeCellAlive(int x, int y, Board board)
@@ -182,9 +184,9 @@ public abstract class Board
         incrementNeighbours(x, y);
     }
 
-    /*private Pair<Cell, Cell> getParents(int x, int y)
+    /*private Pair<main.java.Cell, main.java.Cell> getParents(int x, int y)
     {
-        Cell[] neighbours = getNeighbours(x, y);
+        main.java.Cell[] neighbours = getNeighbours(x, y);
 
         if(neighbours.length < 2)
             throw new RuntimeException(String.format("komórka na pozycji %d, %d nie posiada 2 żywych sąsiadów", x, y));
@@ -201,7 +203,7 @@ public abstract class Board
         } while (parentsIndices[1] == parentsIndices[0]);
 
 
-        return new Pair<Cell, Cell>(neighbours[parentsIndices[0]], neighbours[parentsIndices[1]]);
+        return new Pair<main.java.Cell, main.java.Cell>(neighbours[parentsIndices[0]], neighbours[parentsIndices[1]]);
     }*/
     private Cell[] getParents(int x, int y)
     {
@@ -242,7 +244,7 @@ public abstract class Board
     protected abstract Cell[] getNeighbours(int x, int y);
 
     /**
-     * Zabija daną komórkę (zmienia typ na CellType.Dead oraz zmienia kolor na czarny)
+     * Zabija daną komórkę (zmienia typ na main.java.CellType.Dead oraz zmienia kolor na czarny)
      * @param x pozycja x komórki
      * @param y pozycja y komórki
      */
