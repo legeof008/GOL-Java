@@ -2,7 +2,6 @@ import java.io.*;
 
 public class FirstBoard {
 
-    //TODO do ustalenia maksymalne wartości
     private static final int MAXHEIGHT = 1000;
     private static final int MAXWIDTH = 1000;
 
