@@ -2,7 +2,6 @@ import java.io.*;
 
 public class FirstBoard {
 
-    //TODO do ustalenia maksymalne wartości
     private static final int MAXHEIGHT = 1000;
     private static final int MAXWIDTH = 1000;
 
@@ -49,7 +48,6 @@ public class FirstBoard {
         while ((line = br.readLine()) != null) {
             words = line.split("\\s+");
 
-            //TODO czy dobry rodzaj wyjątku?
             if (words.length != 6)
                 throw new CellParametersException("Nieprawidłowo podane parametry komórek");
 
@@ -171,7 +169,7 @@ public class FirstBoard {
 
     public static void main(String[] args) {
 
-        Board b = null;
+        Board b;
         File f = new File("testdata/data.1");
 
         try {
