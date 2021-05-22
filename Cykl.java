@@ -8,8 +8,9 @@ public abstract class Cykl {
         int i;
         int j;
         tempCells = new Cell[width][heigh];
-        for (i = 0; j < width; j++) {
-            for (j = 0; i < heigh; i++) {
+        for (i = 0; i < width; i++) {
+            for (j = 0; j < heigh; j++) {
+                tempCells[i][j]=new cell();
                 if(cells.isWall()==true){
                     tempCells[i][j]=cells[i][j];
                 }
@@ -20,28 +21,16 @@ public abstract class Cykl {
                     }
 
                 }
-                if(cells.isDead()==true){     //nie pasuje mi tutaj to rzowiązanie na sztywno zmiana w cells problemy z przepisywaniem potem. rozwiązane ale na około
+                if(cells.isDead()==true){     
                     if(cells.getNeighbourCount()==3){
                         cells.makeCellAlive(i,j);
-                        subNeighbour();
                         tempCells[i][j]=cells[i][j];
-                        this.CellType.Dead;
+                        killCell(i, j);
                     }
                 }
             }
         }
         cells=tempCells;
     }
-    //chwilowe obejście problemu tworzenia
-    public void subNeighbour()
-    {
-        neighbourCount--;
-    }
-    public void subNeighbourParameter(int x, int y)
-    {
-        Cell[] neighbours = getAliveNeighbours(x, y);
 
-        for (Cell c : neighbours)
-            c.subNeighbour();
-    }
 }
