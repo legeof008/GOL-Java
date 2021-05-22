@@ -1,5 +1,5 @@
 module GolDwa {
-    opens sample;
+    opens Main;
     requires javafx.controls;
     requires javafx.graphics;
     requires java.desktop;

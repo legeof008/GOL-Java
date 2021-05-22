@@ -1,4 +1,4 @@
-package golGUI;
+package Main.java;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.SnapshotParameters;
@@ -21,17 +21,18 @@ public class SnapshotWriter {
 
     public WritableImage currentStateSnapshot(double pixelScale) {
 
-        WritableImage writableImage = new WritableImage((int)Math.rint(pixelScale*this.canvas.getWidth()), (int)Math.rint(pixelScale*this.canvas.getHeight()));
+        WritableImage writableImage = new WritableImage((int) Math.rint(pixelScale * this.canvas.getWidth()), (int) Math.rint(pixelScale * this.canvas.getHeight()));
         SnapshotParameters spa = new SnapshotParameters();
 
         spa.setTransform(Transform.scale(pixelScale, pixelScale));
 
         return canvas.snapshot(spa, writableImage);
     }
+
     public void saveImage(WritableImage source) throws Exception {
 
-        if(file != null)
-            ImageIO.write( SwingFXUtils.fromFXImage( source, null ), "png", this.file );
+        if (file != null)
+            ImageIO.write(SwingFXUtils.fromFXImage(source, null), "png", this.file);
 
     }
 }
