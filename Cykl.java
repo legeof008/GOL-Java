@@ -7,30 +7,22 @@ public abstract class Cykl {
     public void MakeACycle() {
         int i;
         int j;
-        tempCells = new Cell[width][heigh];
+        Board copy = board.copy();
         for (i = 0; i < width; i++) {
             for (j = 0; j < heigh; j++) {
-                tempCells[i][j]=new cell();
-                if(cells.isWall()==true){
-                    tempCells[i][j]=cells[i][j];
-                }
-                if(cells.isalive()==true){
-                    if(cells.getNeighbourCount()==3 || cells.getNeighbourCount()==2)
+                if(board.getCell.isalive()==true){
+                    if(board.getCellNeighbourCount(i, j)>3 || board.getCellNeighbourCount(i, j)<2)
                     {
-                    tempCells[i][j]=cells[i][j];
+                        copy.killCell(i, j);
                     }
-
                 }
-                if(cells.isDead()==true){     
-                    if(cells.getNeighbourCount()==3){
-                        cells.makeCellAlive(i,j);
-                        tempCells[i][j]=cells[i][j];
-                        killCell(i, j);
+                if(board.getCell.isDead()==true){
+                    if(board.getCellNeighbourCount(i, j)==3){
+                        copy.makeCellAlive(i,j, board);
                     }
                 }
             }
         }
-        cells=tempCells;
+        board=copy;
     }
-
 }
