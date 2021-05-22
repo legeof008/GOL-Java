@@ -171,7 +171,7 @@ public class FirstBoard {
     public static void main(String[] args) {
 
         main.java.Board b = null;
-        File f = new File("Database/data.1");
+        File f = new File("Gol2Java/src/main/resources/Database/data.1");
 
         try {
              b = main.java.FirstBoard.readBoard(f);
@@ -207,7 +207,9 @@ public class FirstBoard {
                     + b.getCell(x,y).isWall());
         }
     }
-*/
+
+
+ */
 }
 
 
