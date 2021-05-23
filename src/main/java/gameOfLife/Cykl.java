@@ -1,28 +1,33 @@
-public abstract class Cykl {
-    protected int width;
-    protected int heigh;
-    protected Cell[][] cells;
-    protected Cell[][] tempCells;
+package main.java.gameOfLife;
 
-    public void MakeACycle() {
+
+
+public class Cykl {
+
+    /**
+     * Metoda przeprowadza cykl wg logiki gry
+     * @param board
+     * @return copy (Board)
+     */
+    public static Board MakeACycle(Board board) {
         int i;
         int j;
         Board copy = board.copy();
-        for (i = 0; i < width; i++) {
-            for (j = 0; j < heigh; j++) {
-                if(board.getCell(i, j).isalive()==true){
+        for (i = 0; i < board.width; i++) {
+            for (j = 0; j < board.height; j++) {
+                if(board.getCell(i, j).isAlive()==true){
                     if(board.getCellNeighbourCount(i, j)>3 || board.getCellNeighbourCount(i, j)<2)
                     {
                         copy.killCell(i, j);
                     }
                 }
-                if(board.getCell(i, j).isDead()==true){
+                else if(board.getCell(i, j).isWall()==false){
                     if(board.getCellNeighbourCount(i, j)==3){
                         copy.makeCellAlive(i,j, board);
                     }
                 }
             }
         }
-        board=copy;
+        return copy;
     }
 }

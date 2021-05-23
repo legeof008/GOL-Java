@@ -1,4 +1,4 @@
-package main.java.gameOfLife;
+package main;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.SnapshotParameters;
@@ -9,7 +9,9 @@ import javafx.scene.transform.Transform;
 import javax.imageio.ImageIO;
 import java.io.File;
 
-
+/**
+ * Klasa zapisuje stan z Canvas w plik .png
+ */
 public class SnapshotWriter {
     Canvas canvas;
     File file;
@@ -18,6 +20,12 @@ public class SnapshotWriter {
         this.canvas = canvas;
         this.file = file;
     }
+
+    /**
+     *
+     * @param pixelScale
+     * @return Zwraca snapshot potrzebny do zapisania z obrazu w formacie WritableImage
+     */
 
     public WritableImage currentStateSnapshot(double pixelScale) {
 
@@ -29,6 +37,12 @@ public class SnapshotWriter {
         return canvas.snapshot(spa, writableImage);
     }
 
+    /**
+     *
+     * @param source
+     * @throws Exception
+     * Zapisuje z WritableImage do pliku .png
+     */
     public void saveImage(WritableImage source) throws Exception {
 
         if (file != null)

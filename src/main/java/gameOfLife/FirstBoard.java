@@ -1,5 +1,7 @@
 package main.java.gameOfLife;
 
+import main.java.BoardParametersException;
+
 import java.io.*;
 
 public class FirstBoard {
