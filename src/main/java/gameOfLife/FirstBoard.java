@@ -50,15 +50,22 @@ public class FirstBoard {
         while ((line = br.readLine()) != null) {
             words = line.split("\\s+");
 
-            if (words.length != 6)
+            if (words.length != 6 && words.length != 3)
                 throw new CellParametersException("Nieprawidłowo podane parametry komórek");
 
             int x = Integer.parseInt(words[0]);
             int y = Integer.parseInt(words[1]);
             int cellType = Integer.parseInt(words[2]);
-            int R = Integer.parseInt(words[3]);
-            int G = Integer.parseInt(words[4]);
-            int B = Integer.parseInt(words[5]);
+
+            //Domyślnie ustawiam niebieski - kolor ściany
+            int R = 0;
+            int G = 0;
+            int B = 255;
+            if(words.length == 6) {
+                R = Integer.parseInt(words[3]);
+                G = Integer.parseInt(words[4]);
+                B = Integer.parseInt(words[5]);
+            }
 
             if (!isCorrectCellParameters(width, height, x, y, cellType, R, G, B))
                 throw new CellParametersException("Nieprawidłowe wartości parametrów komórki");
@@ -99,10 +106,7 @@ public class FirstBoard {
      * @return true jeżeli typ sąsiedztwa został prawidłowo podany (wartość 4 lub 8)
      */
     private static boolean isCorrectNeighborsType(int neighborsType) {
-        boolean isCorrect = true;
-
-        if (neighborsType != 4 && neighborsType != 8)
-            isCorrect = false;
+        boolean isCorrect = neighborsType == 4 || neighborsType == 8;
 
         return isCorrect;
     }
@@ -111,10 +115,7 @@ public class FirstBoard {
      * @return true jeżeli typ zawijania został prawidłowo podany (wartość 1 lub 0)
      */
     private static boolean isCorrectFoldType(int foldType) {
-        boolean isCorrect = true;
-
-        if (foldType != 1 && foldType != 0)
-            isCorrect = false;
+        boolean isCorrect = foldType == 1 || foldType == 0;
 
         return isCorrect;
     }
@@ -123,10 +124,7 @@ public class FirstBoard {
      * @return true jeżeli podano prawidłowe wymiary planszy
      */
     private static boolean isCorrectSizeOfBoard(int width, int height) {
-        boolean isCorrect = true;
-
-        if (width <= 0 || width > MAXWIDTH || height <= 0 || height > MAXHEIGHT)
-            isCorrect = false;
+        boolean isCorrect = width > 0 && width <= MAXWIDTH && height > 0 && height <= MAXHEIGHT;
 
         return isCorrect;
     }
@@ -144,6 +142,10 @@ public class FirstBoard {
             isCorrect = false;
 
         if (R < 0 || R > 255 || G < 0 || G > 255 || B < 0 || B > 255)
+            isCorrect = false;
+
+        //Ściana może być tylko koloru niebieskiego
+        if(cellType == 2 && R != 0 && G != 0 && B != 255)
             isCorrect = false;
 
         return isCorrect;
@@ -167,16 +169,16 @@ public class FirstBoard {
     }
 
 //Przykładowe użycie - na moje potrzeby
-/*
+    /*
     public static void main(String[] args) {
 
-        main.java.Board b = null;
-        File f = new File("Gol2Java/src/main/resources/Database/data.1");
+        main.java.gameOfLife.Board b = null;
+        File f = new File("src/main/resources/data.1");
 
         try {
-             b = main.java.FirstBoard.readBoard(f);
+             b = main.java.gameOfLife.FirstBoard.readBoard(f);
 
-        }catch(IOException | main.java.CellParametersException | main.java.BoardParametersException e){
+        }catch(IOException | main.java.gameOfLife.CellParametersException | main.java.gameOfLife.BoardParametersException e){
             System.err.println(e.getLocalizedMessage());
         }catch(NumberFormatException e){
             System.err.println("Śmieci na wejściu");
@@ -207,9 +209,7 @@ public class FirstBoard {
                     + b.getCell(x,y).isWall());
         }
     }
-
-
- */
+*/
 }
 
 
