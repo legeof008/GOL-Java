@@ -1,5 +1,5 @@
 module GOL2Java {
-    opens main.java;
+    opens main;
     requires javafx.controls;
     requires javafx.graphics;
     requires java.desktop;
