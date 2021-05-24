@@ -3,16 +3,13 @@ package main.java.gameOfLife;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Board4Wrap extends Board
-{
-    public Board4Wrap(int width, int height)
-    {
+public class Board4Wrap extends Board {
+    public Board4Wrap(int width, int height) {
         super(width, height);
     }
 
     @Override
-    protected Cell[] getNeighbours(int x, int y)
-    {
+    protected Cell[] getNeighbours(int x, int y) {
         List<Cell> neighbours = new ArrayList<>();
 
         //* Nie ma sensu robić pętli dla 4 elementów
@@ -25,8 +22,7 @@ public class Board4Wrap extends Board
     }
 
     @Override
-    public Board copy()
-    {
+    public Board copy() {
         Board4Wrap newBoard = new Board4Wrap(width, height);
         newBoard.cells = Util.copy2dArrayOfCells(cells);
 

@@ -2,7 +2,10 @@ package main.java.gameOfLife;
 
 import main.java.BoardParametersException;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class FirstBoard {
 
@@ -63,7 +66,7 @@ public class FirstBoard {
             int R = 0;
             int G = 0;
             int B = 255;
-            if(words.length == 6) {
+            if (words.length == 6) {
                 R = Integer.parseInt(words[3]);
                 G = Integer.parseInt(words[4]);
                 B = Integer.parseInt(words[5]);
@@ -135,10 +138,7 @@ public class FirstBoard {
      * @return true jeżeli podano prawidłowe parametry komórki
      */
     private static boolean isCorrectCellParameters(int boardWidth, int boardHeight, int x, int y, int cellType, int R, int G, int B) {
-        boolean isCorrect = true;
-
-        if (x < 0 || x >= boardWidth || y < 0 || y >= boardHeight)
-            isCorrect = false;
+        boolean isCorrect = x >= 0 && x < boardWidth && y >= 0 && y < boardHeight;
 
         if (cellType != 0 && cellType != 1 && cellType != 2)
             isCorrect = false;
@@ -147,7 +147,7 @@ public class FirstBoard {
             isCorrect = false;
 
         //Ściana może być tylko koloru niebieskiego
-        if(cellType == 2 && R != 0 && G != 0 && B != 255)
+        if (cellType == 2 && R != 0 && G != 0 && B != 255)
             isCorrect = false;
 
         return isCorrect;

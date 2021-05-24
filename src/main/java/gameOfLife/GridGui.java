@@ -6,11 +6,9 @@ import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Popup;
 import main.SnapshotWriter;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -41,7 +39,6 @@ public class GridGui extends GridPane {
     public final AtomicBoolean isOk;
 
 
-
     /**
      * Tworzy podstawowy interfejs, inicjalizuje odpowiednie metody pod odpowiednie guziki
      */
@@ -62,9 +59,9 @@ public class GridGui extends GridPane {
         this.cycleField = new TextField();
         this.delayField = new TextField();
 
-        nextButton = new Button("Next");
-        stopButton = new Button("Stop");
-        startButton = new Button("Start");
+        this.nextButton = new Button("Next");
+        this.stopButton = new Button("Stop");
+        this.startButton = new Button("Start");
 
         this.cycleField.setMaxWidth(50);
         this.delayField.setMaxWidth(50);
@@ -82,41 +79,56 @@ public class GridGui extends GridPane {
 
 
     }
-    public void setOnActionButtonNext(EventHandler<javafx.event.Event> event){
+
+    /**
+     *
+     * @param event
+     * Funkcje ustawiaja event na kazdy z elementow
+     */
+    public void setOnActionButtonNext(EventHandler<javafx.event.Event> event) {
         nextButton.setOnMouseClicked(event);
     }
-    public void setOnActionButtonStart(EventHandler<javafx.event.Event> event){
+
+    public void setOnActionButtonStart(EventHandler<javafx.event.Event> event) {
         startButton.setOnMouseClicked(event);
     }
-    public void setOnActionButtonStop(EventHandler<javafx.event.Event> event){
+
+    public void setOnActionButtonStop(EventHandler<javafx.event.Event> event) {
         stopButton.setOnMouseClicked(event);
     }
-    public void setOnActionTextCycle(EventHandler<ActionEvent> event){
+
+    public void setOnActionTextCycle(EventHandler<ActionEvent> event) {
         cycleField.setOnAction(event);
     }
-    public void setOnActionTextDelay(EventHandler<ActionEvent> event){
+
+    public void setOnActionTextDelay(EventHandler<ActionEvent> event) {
         delayField.setOnAction(event);
     }
-    public void setCycles(int cycles){
+
+    public void setCycles(int cycles) {
         this.cycles = cycles;
     }
-    public void setDelay(int delay){
+
+    public void setDelay(int delay) {
         this.delay = delay;
     }
+
     public void setBoard(Board board) {
         if (board != null)
             this.board = board;
 
         canDraw = true;
     }
-    public Board getBoard()
-    {
+
+    public Board getBoard() {
         return this.board;
     }
-    public int getDelay(){
+
+    public int getDelay() {
         return this.delay;
     }
-    public int getCycles(){
+
+    public int getCycles() {
         return this.cycles;
     }
 
@@ -125,6 +137,8 @@ public class GridGui extends GridPane {
      * @param scale - skala dla planszy
      *              Metoda rysuje plansze z odpowiedniego objektu board.
      */
+
+
     public void draw(int scale) {
         if (canDraw) {
             GraphicsContext gC = this.canvas.getGraphicsContext2D();
@@ -146,6 +160,8 @@ public class GridGui extends GridPane {
      * @param color
      * @param scale Rysuje komorke na objekcie Canvas
      */
+
+
     private void setAlive(int x, int y, Color color, int scale) {
         GraphicsContext gC = this.canvas.getGraphicsContext2D();
         gC.setFill(color);

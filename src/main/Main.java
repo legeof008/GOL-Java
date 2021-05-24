@@ -55,7 +55,9 @@ public class Main extends Application {
                 ex.printStackTrace();
             }
         });
-
+        /**
+         * Inicjowanie akcji dla odpowiednich przyciskow GridGui'a
+         */
         gridView.setOnActionButtonStart(ae -> {
             if (gridView.canDraw && !gridView.started) {
                 popup.hide();
@@ -64,27 +66,26 @@ public class Main extends Application {
                 gridView.started = true;
                 if (!gridView.delayField.getText().isBlank()) {
                     try {
-                        gridView.setDelay(Integer.parseInt(gridView.delayField.getText()) >= 100 ? Integer.parseInt(gridView.delayField.getText()) : gridView.defDelay);
+                        gridView.setDelay(Integer.parseInt(gridView.delayField.getText()) >= 100 ? Integer.parseInt(gridView.delayField.getText()) : GridGui.defDelay);
                         gridView.isOk.set(true);
 
                     } catch (NumberFormatException ex) {
                         popup.show(primaryStage.getScene().getWindow());
                         gridView.isOk.set(false);
-                        gridView.setDelay(gridView.defDelay);
+                        gridView.setDelay(GridGui.defDelay);
                     }
                 }
-                th = new PausableThread(gridView,gridView.getDelay());
+                th = new PausableThread(gridView, gridView.getDelay());
                 th.start();
-            }
-            else if(gridView.started) {
+            } else if (gridView.started) {
                 popuper.show(primaryStage.getScene().getWindow());
             }
         });
 
-        gridView.setOnActionButtonStop( ae-> {
+        gridView.setOnActionButtonStop(ae -> {
             if (Thread.currentThread().isAlive()) {
                 try {
-                    if(th.isAlive()) {
+                    if (th.isAlive()) {
                         th.pauseThread();
                         gridView.started = false;
                     }
@@ -92,7 +93,7 @@ public class Main extends Application {
                     e.printStackTrace();
                 }
             }
-            if (gridView.isOk.get()){
+            if (gridView.isOk.get()) {
                 popup.hide();
                 popuper.hide();
             }
@@ -100,62 +101,58 @@ public class Main extends Application {
         });
         gridView.setOnActionButtonNext(ae -> {
             if (gridView.canDraw) {
-                if(!gridView.cycleField.getText().isBlank()){
+                if (!gridView.cycleField.getText().isBlank()) {
                     popup.hide();
                     popuper.hide();
                     try {
-                        gridView.setCycles(Integer.parseInt(gridView.cycleField.getText()) > 0 ? Integer.parseInt(gridView.cycleField.getText()) : gridView.defCycles);
-                    }
-                    catch (NumberFormatException ex){
+                        gridView.setCycles(Integer.parseInt(gridView.cycleField.getText()) > 0 ? Integer.parseInt(gridView.cycleField.getText()) : GridGui.defCycles);
+                    } catch (NumberFormatException ex) {
                         popup.show(primaryStage.getScene().getWindow());
                         gridView.setCycles(GridGui.defCycles);
                     }
 
                 }
                 int cycles = gridView.getCycles();
-                System.out.println("Cukle: " + cycles);
-                for(int i = 0; i < cycles; i++)
+                for (int i = 0; i < cycles; i++)
                     gridView.setBoard(Cykl.MakeACycle(gridView.getBoard()));
                 gridView.draw(10);
             }
 
         });
-        gridView.setOnActionTextCycle( ae-> {
-            if(!gridView.cycleField.getText().isBlank()){
+        gridView.setOnActionTextCycle(ae -> {
+            if (!gridView.cycleField.getText().isBlank()) {
                 popup.hide();
                 popuper.hide();
                 try {
-                    gridView.setCycles(Integer.parseInt(gridView.cycleField.getText()) > 0 ? Integer.parseInt(gridView.cycleField.getText()) : gridView.defCycles);
-                }
-                catch (NumberFormatException ex){
+                    gridView.setCycles(Integer.parseInt(gridView.cycleField.getText()) > 0 ? Integer.parseInt(gridView.cycleField.getText()) : GridGui.defCycles);
+                } catch (NumberFormatException ex) {
                     popup.show(primaryStage.getScene().getWindow());
-                    gridView.setCycles(gridView.defCycles);
+                    gridView.setCycles(GridGui.defCycles);
                 }
 
             }
 
         });
-        gridView.setOnActionTextDelay( ae -> {
+        gridView.setOnActionTextDelay(ae -> {
             if (!gridView.delayField.getText().isBlank()) {
                 try {
-                    gridView.setDelay(Integer.parseInt(gridView.delayField.getText()) >= 100 ? Integer.parseInt(gridView.delayField.getText()) : gridView.defDelay);
+                    gridView.setDelay(Integer.parseInt(gridView.delayField.getText()) >= 100 ? Integer.parseInt(gridView.delayField.getText()) : GridGui.defDelay);
                     gridView.isOk.set(true);
 
                 } catch (NumberFormatException ex) {
                     popup.show(primaryStage.getScene().getWindow());
-                    gridView.setDelay(gridView.defDelay);
+                    gridView.setDelay(GridGui.defDelay);
                     gridView.isOk.set(false);
                 }
                 if (gridView.isOk.get())
                     popup.hide();
-                    popuper.hide();
+                popuper.hide();
             } else {
                 popup.hide();
                 popuper.hide();
             }
 
         });
-
 
 
         ///De facto inicjowanie sceny
@@ -170,9 +167,9 @@ public class Main extends Application {
         primaryStage.show();
 
     }
-
-
     public static void main(String[] args) {
         launch(args);
     }
+
+
 }

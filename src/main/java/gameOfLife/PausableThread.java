@@ -1,7 +1,7 @@
 package main.java.gameOfLife;
 
-public class PausableThread extends Thread{
-    private GridGui GUI;
+public class PausableThread extends Thread {
+    private final GridGui GUI;
     private volatile boolean running = true;
     int delay;
 
@@ -23,6 +23,7 @@ public class PausableThread extends Thread{
         }
 
     }
+
     public void resumeThread() {
         running = true;
     }

@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Main-Class: main.Launcher
+Class-Path: javafx-swing-11.0.1-linux.jar javafx-controls-15-linux.jar j
+ avafx-graphics-15-linux.jar javafx-fxml-15-linux.jar javafx-base-15-lin
+ ux.jar
+
