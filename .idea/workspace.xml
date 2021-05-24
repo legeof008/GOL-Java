@@ -2,17 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8185dcd5-e541-4747-96b6-dea61a316839" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/data.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/Main2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/GridGui.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/PausableThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GOL2Java.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GOL2Java.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/Cykl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/Cykl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/FirstBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/FirstBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/FirstBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/FirstBoard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/GridView$MyThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/GridView$MyThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/GridView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/GridView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/data.1" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/data.1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/GridView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/GridView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/LoadSaveClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/LoadSaveClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/SnapshotWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/SnapshotWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data.1" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
