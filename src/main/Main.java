@@ -1,27 +1,27 @@
-package main;
+package gameOfLife;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import main.java.gameOfLife.*;
 
 import java.io.File;
+import java.io.IOException;
 
 public class Main extends Application {
     public Board board;
     PausableThread th;
 
+    private Label errorMessagelabel;
+
     @Override
     public void start(Stage primaryStage) {
 
         GridGui gridView = new GridGui();
-        Popup popup = new Popup();
-        Popup popuper = new Popup();
-        popup.getContent().add(new Label("Niepoprawny format liczbowy !"));
-        popuper.getContent().add(new Label("Nalezy kliknac stop !"));
 
         final Button loadButton = new Button("Load");
         final Button saveButton = new Button("Save");
@@ -29,59 +29,93 @@ public class Main extends Application {
         ///Wczytywanie z przycisku
         loadButton.setOnMouseClicked(ae -> {
             try {
-                popup.hide();
+                errorMessagelabel.setText("");
+
                 LoadSaveClass loadSave = new LoadSaveClass();
                 File load = loadSave.useLoader(primaryStage);
-                board = FirstBoard.readBoard(load);
-                gridView.setBoard(board);
-                gridView.draw(10);
+                if(load != null) {
+                    board = FirstBoard.readBoard(load);
 
-            } catch (Exception ex) {
-                ex.printStackTrace();
+                    gridView.setBoard(board);
+                    gridView.draw(10);
+                }
+
+            } catch (CellParametersException | BoardParametersException ex)
+            {
+                errorMessagelabel.setText("Wybrany plik posiada niepoprawny format");
+            }
+            catch (IOException ex)
+            {
+                errorMessagelabel.setText("Nie można otworzyć wybranego pliku: " + ex.getMessage());
+            }
+            catch (Exception ex) {
+                errorMessagelabel.setText("Nieznany błąd: " + ex.getMessage());
             }
         });
 
         //Zapisywanie z przycisku
         saveButton.setOnMouseClicked(ae -> {
             try {
-                popup.hide();
-                popuper.hide();
+                errorMessagelabel.setText("");
+
                 LoadSaveClass loadSave = new LoadSaveClass();
                 File save = loadSave.useSaver(primaryStage);
 
                 SnapshotWriter sn = new SnapshotWriter(gridView.canvas, save);
                 sn.saveImage(sn.currentStateSnapshot(1));
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (IOException ex) {
+                errorMessagelabel.setText("Nie zapisać planszy w postaci pliku: " + ex.getMessage());
             }
         });
-        /**
-         * Inicjowanie akcji dla odpowiednich przyciskow GridGui'a
-         */
+
+        // Inicjowanie akcji dla odpowiednich przyciskow GridGui'a
+        // Start Button
         gridView.setOnActionButtonStart(ae -> {
-            if (gridView.canDraw && !gridView.started) {
-                popup.hide();
-                popuper.hide();
+            if (gridView.canDraw) {
+                if(!gridView.started) {
+                    errorMessagelabel.setText("");
 
-                gridView.started = true;
-                if (!gridView.delayField.getText().isBlank()) {
-                    try {
-                        gridView.setDelay(Integer.parseInt(gridView.delayField.getText()) >= 100 ? Integer.parseInt(gridView.delayField.getText()) : GridGui.defDelay);
-                        gridView.isOk.set(true);
+                    gridView.started = true;
+                    if (!gridView.delayField.getText().isBlank()) {
+                        try {
+                            int delay = Integer.parseInt(gridView.delayField.getText());
+                            if (delay < 100 || delay > 10000) {
+                                errorMessagelabel.setText("Podana wartość nie jest właściwa");
 
-                    } catch (NumberFormatException ex) {
-                        popup.show(primaryStage.getScene().getWindow());
-                        gridView.isOk.set(false);
+                                delay = GridGui.defDelay;
+                                gridView.delayField.setText(Integer.toString(delay));
+                            }
+                            gridView.setDelay(delay);
+                            gridView.isOk.set(true);
+                        } catch (NumberFormatException ex) {
+                            errorMessagelabel.setText("Niepoprawny format liczbowy");
+
+                            gridView.isOk.set(false);
+                            gridView.delayField.setText(Integer.toString(GridGui.defDelay));
+                            gridView.setDelay(GridGui.defDelay);
+                        }
+                    } else {
+                        errorMessagelabel.setText("Nie podano żadnej wartości");
+
+                        gridView.delayField.setText(Integer.toString(GridGui.defDelay));
                         gridView.setDelay(GridGui.defDelay);
+                        gridView.isOk.set(true);
                     }
+                    //TODO: nwm czy będzie dobrze działać
+                    if (th != null)
+                        th.interrupt();
+
+                    th = new PausableThread(gridView, gridView.getDelay());
+                    th.start();
+                } else {
+                    errorMessagelabel.setText("Należy wcześniej wcisnąć Stop");
                 }
-                th = new PausableThread(gridView, gridView.getDelay());
-                th.start();
-            } else if (gridView.started) {
-                popuper.show(primaryStage.getScene().getWindow());
+            } else {
+                errorMessagelabel.setText("Należy wcześniej wczytać planszę");
             }
         });
 
+        // Stop Button
         gridView.setOnActionButtonStop(ae -> {
             if (Thread.currentThread().isAlive()) {
                 try {
@@ -93,65 +127,94 @@ public class Main extends Application {
                     e.printStackTrace();
                 }
             }
-            if (gridView.isOk.get()) {
-                popup.hide();
-                popuper.hide();
-            }
-
         });
+
+        // Next Button
         gridView.setOnActionButtonNext(ae -> {
             if (gridView.canDraw) {
+                errorMessagelabel.setText("");
+
                 if (!gridView.cycleField.getText().isBlank()) {
-                    popup.hide();
-                    popuper.hide();
                     try {
-                        gridView.setCycles(Integer.parseInt(gridView.cycleField.getText()) > 0 ? Integer.parseInt(gridView.cycleField.getText()) : GridGui.defCycles);
+                        int cycleCount = Integer.parseInt(gridView.cycleField.getText());
+                        if(cycleCount < 1 || cycleCount > 1000) {
+                            errorMessagelabel.setText("Podana wartość nie jest właściwa");
+
+                            cycleCount = GridGui.defCycles;
+                            gridView.cycleField.setText(Integer.toString(cycleCount));
+                        }
+                        gridView.setCycles(cycleCount);
                     } catch (NumberFormatException ex) {
-                        popup.show(primaryStage.getScene().getWindow());
+                        errorMessagelabel.setText("Niepoprawny format liczbowy");
+
+                        gridView.cycleField.setText(Integer.toString(GridGui.defCycles));
                         gridView.setCycles(GridGui.defCycles);
                     }
+                } else {
+                    errorMessagelabel.setText("Nie podano żadnej wartości");
 
+                    gridView.cycleField.setText(Integer.toString(GridGui.defCycles));
+                    gridView.setCycles(GridGui.defCycles);
                 }
+
                 int cycles = gridView.getCycles();
                 for (int i = 0; i < cycles; i++)
                     gridView.setBoard(Cykl.MakeACycle(gridView.getBoard()));
                 gridView.draw(10);
+            } else {
+                errorMessagelabel.setText("Należy wcześniej wczytać planszę");
             }
 
         });
+
+        // Cycle Text
         gridView.setOnActionTextCycle(ae -> {
             if (!gridView.cycleField.getText().isBlank()) {
-                popup.hide();
-                popuper.hide();
+                errorMessagelabel.setText("");
+
                 try {
-                    gridView.setCycles(Integer.parseInt(gridView.cycleField.getText()) > 0 ? Integer.parseInt(gridView.cycleField.getText()) : GridGui.defCycles);
+                    int cycleCount = Integer.parseInt(gridView.cycleField.getText());
+                    if(cycleCount < 1 || cycleCount > 1000) {
+                        errorMessagelabel.setText("Podana wartość nie jest właściwa");
+
+                        cycleCount = GridGui.defCycles;
+                        gridView.cycleField.setText(Integer.toString(cycleCount));
+                    }
+                    gridView.setCycles(cycleCount);
                 } catch (NumberFormatException ex) {
-                    popup.show(primaryStage.getScene().getWindow());
+                    errorMessagelabel.setText("Niepoprawny format liczbowy");
+
+                    gridView.cycleField.setText(Integer.toString(GridGui.defCycles));
                     gridView.setCycles(GridGui.defCycles);
                 }
 
             }
 
         });
+
+        // Delay Text
         gridView.setOnActionTextDelay(ae -> {
             if (!gridView.delayField.getText().isBlank()) {
+                errorMessagelabel.setText("");
+
                 try {
-                    gridView.setDelay(Integer.parseInt(gridView.delayField.getText()) >= 100 ? Integer.parseInt(gridView.delayField.getText()) : GridGui.defDelay);
+                    int delay = Integer.parseInt(gridView.delayField.getText());
+                    if (delay < 100 || delay > 10000) {
+                        errorMessagelabel.setText("Podana wartość nie jest właściwa");
+
+                        delay = GridGui.defDelay;
+                        gridView.delayField.setText(Integer.toString(delay));
+                    }
+                    gridView.setDelay(delay);
                     gridView.isOk.set(true);
-
                 } catch (NumberFormatException ex) {
-                    popup.show(primaryStage.getScene().getWindow());
-                    gridView.setDelay(GridGui.defDelay);
-                    gridView.isOk.set(false);
-                }
-                if (gridView.isOk.get())
-                    popup.hide();
-                popuper.hide();
-            } else {
-                popup.hide();
-                popuper.hide();
-            }
+                    errorMessagelabel.setText("Niepoprawny format liczbowy");
 
+                    gridView.isOk.set(false);
+                    gridView.delayField.setText(Integer.toString(GridGui.defDelay));
+                    gridView.setDelay(GridGui.defDelay);
+                }
+            }
         });
 
 
@@ -159,6 +222,15 @@ public class Main extends Application {
 
         gridView.add(loadButton, 4, 2);
         gridView.add(saveButton, 4, 3);
+
+
+        errorMessagelabel = new Label();
+        errorMessagelabel.setMaxWidth(450);
+        errorMessagelabel.setMaxHeight(35);
+        errorMessagelabel.setWrapText(true);
+        errorMessagelabel.setTextFill(Color.rgb(255, 0, 0));
+
+        gridView.add(errorMessagelabel, 1, 2);
 
         primaryStage.setScene(new Scene(gridView, 750, 600));
         primaryStage.setResizable(false);
