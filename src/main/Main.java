@@ -1,4 +1,4 @@
-package gameOfLife;
+package main.java.gameOfLife;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import main.java.gameOfLife.*
 
 import java.io.File;
 import java.io.IOException;
