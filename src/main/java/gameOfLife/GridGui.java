@@ -1,4 +1,4 @@
-package main.java.gameOfLife;
+package gameOfLife;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -6,10 +6,10 @@ import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import main.SnapshotWriter;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -65,7 +65,6 @@ public class GridGui extends GridPane {
 
         this.cycleField.setMaxWidth(50);
         this.delayField.setMaxWidth(50);
-
 
         this.add(cycleField, 0, 4);
         this.add(delayField, 2, 4);
@@ -146,7 +145,6 @@ public class GridGui extends GridPane {
             gC.fillRect(0, 0, 450, 450);
             for (int i = 0; i < board.width; i++) {
                 for (int j = 0; j < board.height; j++) {
-                    Color cellColor = new Color(((float) board.getCell(i, j).getR()) / 255, ((float) board.getCell(i, j).getB()) / 255, ((float) board.getCell(i, j).getB()) / 255, 0);
                     setAlive(i, j, Color.rgb(board.getCell(i, j).getR(), board.getCell(i, j).getG(), board.getCell(i, j).getB()), scale);
                 }
             }
