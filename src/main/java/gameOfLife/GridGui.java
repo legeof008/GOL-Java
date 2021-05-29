@@ -81,9 +81,7 @@ public class GridGui extends GridPane {
     }
 
     /**
-     *
-     * @param event
-     * Funkcje ustawiaja event na kazdy z elementow
+     * @param event Funkcje ustawiaja event na kazdy z elementow
      */
     public void setOnActionButtonNext(EventHandler<javafx.event.Event> event) {
         nextButton.setOnMouseClicked(event);
@@ -139,15 +137,16 @@ public class GridGui extends GridPane {
      */
 
 
-    public void draw(int scale) {
+    public void draw(int scale, Board boardr) {
+
         if (canDraw) {
             GraphicsContext gC = this.canvas.getGraphicsContext2D();
             gC.setFill(Color.BLACK);
             gC.fillRect(0, 0, 450, 450);
-            for (int i = 0; i < board.width; i++) {
-                for (int j = 0; j < board.height; j++) {
-                    Color cellColor = new Color(((float) board.getCell(i, j).getR()) / 255, ((float) board.getCell(i, j).getB()) / 255, ((float) board.getCell(i, j).getB()) / 255, 0);
-                    setAlive(i, j, Color.rgb(board.getCell(i, j).getR(), board.getCell(i, j).getG(), board.getCell(i, j).getB()), scale);
+            for (int i = 0; i < boardr.width; i++) {
+                for (int j = 0; j < boardr.height; j++) {
+                    Color cellColor = new Color(((float) boardr.getCell(i, j).getR()) / 255, ((float) boardr.getCell(i, j).getB()) / 255, ((float) boardr.getCell(i, j).getB()) / 255, 0);
+                    setAlive(i, j, Color.rgb(boardr.getCell(i, j).getR(), boardr.getCell(i, j).getG(), boardr.getCell(i, j).getB()), scale);
                 }
             }
         }

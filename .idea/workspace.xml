@@ -7,83 +7,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8185dcd5-e541-4747-96b6-dea61a316839" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/GOL2Java_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/Launcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/UpdateCanvas.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GOL2Java.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GOL2Java.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/CachingTransferable.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/DataFlavorUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/Disposer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/DisposerRecord.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/FXDnD.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/FXDnDInterop.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/InteropFactory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/JFXPanelInterop.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/SwingCursors.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/SwingDnD.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/SwingDragSource.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/SwingEvents.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/SwingFXUtilsImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/SwingFXUtilsImplInterop.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/SwingNodeHelper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/SwingNodeInterop.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/newimpl/FXDnDInteropN.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/newimpl/InteropFactoryN.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/newimpl/JFXPanelInteropN.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/newimpl/SwingFXUtilsImplInteropN.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/newimpl/SwingNodeInteropN.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/oldimpl/FXDnDInteropO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/oldimpl/InteropFactoryO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/oldimpl/JFXPanelInteropO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/oldimpl/SwingFXUtilsImplInteropO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/com/sun/javafx/embed/swing/oldimpl/SwingNodeInteropO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/javafx/embed/swing/InputMethodSupport.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/javafx/embed/swing/JFXPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/javafx/embed/swing/SwingFXUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/javafx/embed/swing/SwingNode.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar/module-info.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/LoadSaveClass.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/Main2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/SnapshotWriter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/BoardParametersException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/Board.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/Board4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/Board4Wrap.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/Board8.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/Board8Wrap.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/Cell.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/CellParametersException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/CellType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/Cykl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/FirstBoard.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/GridGui.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/GridView$MyThread.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/GridView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/GridGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/GridGui.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/PausableThread.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/Util.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/4 diamenty stabilizujące 8 jednokolor.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/4 diamenty stabilizujące 8 jednokolor.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/linia 8 stabilizujący.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/linia 8 stabilizujący.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/rozwój 4 diamentów z dodatkową komurką 8 jednokolor.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/rozwój 4 diamentów z dodatkową komurką 8 jednokolor.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/module-info.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/statki 8 przenikanie ścian.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/statki 8 przenikanie ścian.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/Żołądź 8 stabilizujący się po 5200 krokach.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/Żołądź 8 stabilizujący się po 5200 krokach.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/Board4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/Board4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/Board4Wrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/Board4Wrap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/Board8.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/Board8.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/Board8Wrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/Board8Wrap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/BoardParametersException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/BoardParametersException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/Cell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/CellParametersException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/CellParametersException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/Cykl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/Cykl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/FirstBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/FirstBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/GridGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/GridGui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/PausableThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/PausableThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/Util.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/4 diamenty stabilizujące 8 jednokolor.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/4 diamenty stabilizujące 8 jednokolor.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/linia 8 stabilizujący.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/linia 8 stabilizujący.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/rozwój 4 diamentów z dodatkową komurką 8 jednokolor.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/rozwój 4 diamentów z dodatkową komurką 8 jednokolor.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/PausableThread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/statki 8 przenikanie ścian.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/statki 8 przenikanie ścian.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Żołądź 8 stabilizujący się po 5200 krokach.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Żołądź 8 stabilizujący się po 5200 krokach.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +29,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="module-info" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -115,6 +51,11 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="main" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application">

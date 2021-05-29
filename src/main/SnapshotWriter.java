@@ -22,7 +22,6 @@ public class SnapshotWriter {
     }
 
     /**
-     *
      * @param pixelScale
      * @return Zwraca snapshot potrzebny do zapisania z obrazu w formacie WritableImage
      */
@@ -38,10 +37,8 @@ public class SnapshotWriter {
     }
 
     /**
-     *
      * @param source
-     * @throws Exception
-     * Zapisuje z WritableImage do pliku .png
+     * @throws Exception Zapisuje z WritableImage do pliku .png
      */
     public void saveImage(WritableImage source) throws Exception {
 

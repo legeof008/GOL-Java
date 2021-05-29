@@ -6,11 +6,10 @@ import javafx.stage.Stage;
 import java.io.File;
 
 /**
- *  Klasa sluzy do uzywania okienek w celu zwrocenia klasy File
+ * Klasa sluzy do uzywania okienek w celu zwrocenia klasy File
  */
 public class LoadSaveClass {
     /**
-     *
      * @param primaryStage
      * @return zwraca File odebrany z widoku okienka
      * @throws Exception
@@ -24,7 +23,6 @@ public class LoadSaveClass {
     }
 
     /**
-     *
      * @param primaryStage
      * @return zwraca File wybrany z okienka zapisywania
      */

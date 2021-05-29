@@ -9,15 +9,25 @@ import javafx.stage.Stage;
 import main.java.gameOfLife.*;
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.Queue;
+
 
 public class Main extends Application {
     public Board board;
-    PausableThread th;
+    public int SCALE = 10;
+    Thread queThread;
+    Thread canvasThread;
+    public GridGui gridView;
+    public Queue<Board> boardQueue;
+    public UpdateCanvas canvasTask;
 
     @Override
     public void start(Stage primaryStage) {
 
-        GridGui gridView = new GridGui();
+        gridView = new GridGui();
+
+
         Popup popup = new Popup();
         Popup popuper = new Popup();
         popup.getContent().add(new Label("Niepoprawny format liczbowy !"));
@@ -33,8 +43,12 @@ public class Main extends Application {
                 LoadSaveClass loadSave = new LoadSaveClass();
                 File load = loadSave.useLoader(primaryStage);
                 board = FirstBoard.readBoard(load);
+
+                boardQueue = new LinkedList<>();
+                boardQueue.add(board);
                 gridView.setBoard(board);
-                gridView.draw(10);
+                gridView.draw(SCALE, gridView.getBoard());
+                updateQueManually(2, boardQueue, gridView);
 
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -58,47 +72,43 @@ public class Main extends Application {
         /**
          * Inicjowanie akcji dla odpowiednich przyciskow GridGui'a
          */
+
         gridView.setOnActionButtonStart(ae -> {
-            if (gridView.canDraw && !gridView.started) {
-                popup.hide();
-                popuper.hide();
+            if (gridView.canDraw && !gridView.delayField.getText().isBlank()) {
+                try {
+                    gridView.setDelay(Integer.parseInt(gridView.delayField.getText()) >= 100 ? Integer.parseInt(gridView.delayField.getText()) : GridGui.defDelay);
+                    gridView.isOk.set(true);
 
-                gridView.started = true;
-                if (!gridView.delayField.getText().isBlank()) {
-                    try {
-                        gridView.setDelay(Integer.parseInt(gridView.delayField.getText()) >= 100 ? Integer.parseInt(gridView.delayField.getText()) : GridGui.defDelay);
-                        gridView.isOk.set(true);
-
-                    } catch (NumberFormatException ex) {
-                        popup.show(primaryStage.getScene().getWindow());
-                        gridView.isOk.set(false);
-                        gridView.setDelay(GridGui.defDelay);
-                    }
+                } catch (NumberFormatException ex) {
+                    popup.show(primaryStage.getScene().getWindow());
+                    gridView.setDelay(GridGui.defDelay);
+                    gridView.isOk.set(false);
                 }
-                th = new PausableThread(gridView, gridView.getDelay());
-                th.start();
-            } else if (gridView.started) {
-                popuper.show(primaryStage.getScene().getWindow());
+                if (gridView.isOk.get())
+                    popup.hide();
+
+                if (canvasTask == null || canvasTask.isCancelled()) {
+
+                    canvasTask = new UpdateCanvas(gridView.getDelay(), SCALE, gridView, boardQueue);
+
+                    canvasThread = new Thread(canvasTask);
+
+                    canvasThread.setDaemon(true);
+                    canvasThread.start();
+
+                } else if (canvasTask.isRunning()) {
+                    popuper.show(primaryStage.getScene().getWindow());
+                }
+
+
             }
         });
 
         gridView.setOnActionButtonStop(ae -> {
-            if (Thread.currentThread().isAlive()) {
-                try {
-                    if (th.isAlive()) {
-                        th.pauseThread();
-                        gridView.started = false;
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (gridView.isOk.get()) {
-                popup.hide();
-                popuper.hide();
-            }
-
+            if (canvasTask != null && canvasTask.isRunning())
+                canvasTask.cancel();
         });
+
         gridView.setOnActionButtonNext(ae -> {
             if (gridView.canDraw) {
                 if (!gridView.cycleField.getText().isBlank()) {
@@ -112,13 +122,16 @@ public class Main extends Application {
                     }
 
                 }
-                int cycles = gridView.getCycles();
-                for (int i = 0; i < cycles; i++)
-                    gridView.setBoard(Cykl.MakeACycle(gridView.getBoard()));
-                gridView.draw(10);
+
+                updateQueManually(gridView.getCycles(), boardQueue, gridView);
+                if (!boardQueue.isEmpty()) {
+                    for (int i = 0; i < gridView.getCycles(); i++)
+                        gridView.draw(SCALE, boardQueue.remove());
+                }
             }
 
         });
+
         gridView.setOnActionTextCycle(ae -> {
             if (!gridView.cycleField.getText().isBlank()) {
                 popup.hide();
@@ -133,6 +146,7 @@ public class Main extends Application {
             }
 
         });
+
         gridView.setOnActionTextDelay(ae -> {
             if (!gridView.delayField.getText().isBlank()) {
                 try {
@@ -146,11 +160,10 @@ public class Main extends Application {
                 }
                 if (gridView.isOk.get())
                     popup.hide();
-                popuper.hide();
             } else {
                 popup.hide();
-                popuper.hide();
             }
+            popuper.hide();
 
         });
 
@@ -167,9 +180,16 @@ public class Main extends Application {
         primaryStage.show();
 
     }
+
+    public static void updateQueManually(int cycles, Queue<Board> boardQueue, GridGui gridView) {
+        for (int i = 0; i < cycles; i++) {
+            boardQueue.add(gridView.getBoard());
+            gridView.setBoard(Cykl.MakeACycle(gridView.getBoard()));
+        }
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
-
 
 }
