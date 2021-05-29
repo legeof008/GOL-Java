@@ -3,13 +3,12 @@ package main;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
+import main.java.BoardParametersException;
 import main.java.gameOfLife.*;
 
-import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -32,7 +31,7 @@ public class Main extends Application {
 
         ///Wczytywanie z przycisku
         loadButton.setOnMouseClicked(ae -> {
-            if(canvasTask == null || !canvasTask.isRunning()) {
+            if (canvasTask == null || !canvasTask.isRunning()) {
 
                 try {
                     gridView.setWarningLabelText("");
@@ -44,21 +43,24 @@ public class Main extends Application {
                     boardQueue.add(board);
 
                     gridView.setBoard(board);
+                    SCALE = getScale(board,gridView);
                     gridView.draw(SCALE, gridView.getBoard());
 
                     updateQueManually(2, boardQueue, gridView);
 
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                } catch (BoardParametersException | IOException | CellParametersException ex1) {
+                    gridView.setWarningLabelText("Zly\nformat\npliku !");
                 }
-            }
-            else
+                catch (NullPointerException ex2){
+                    gridView.setWarningLabelText("Brak\npliku !");
+                }
+            } else
                 gridView.setWarningLabelText("Nalezy\nzatrzymac watek!\n");
         });
 
         //Zapisywanie z przycisku
         saveButton.setOnMouseClicked(ae -> {
-            if(canvasTask == null || !canvasTask.isRunning()) {
+            if (canvasTask == null || !canvasTask.isRunning()) {
 
                 try {
                     gridView.setWarningLabelText("");
@@ -70,8 +72,7 @@ public class Main extends Application {
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-            }
-            else
+            } else
                 gridView.setWarningLabelText("Nalezy\nzatrzymac watek!\n");
         });
         /**
@@ -86,7 +87,7 @@ public class Main extends Application {
                 } catch (NumberFormatException ex) {
 
                     gridView.setDelay(GridGui.defDelay);
-                    gridView.setWarningLabelText("Niepoprawny\nformat liczb\nUstawiono\nwartosc:"+gridView.defDelay);
+                    gridView.setWarningLabelText("Niepoprawny\nformat liczb\nUstawiono\nwartosc:" + GridGui.defDelay);
 
                 }
 
@@ -122,7 +123,7 @@ public class Main extends Application {
                     try {
                         gridView.setCycles(Integer.parseInt(gridView.cycleField.getText()) > 0 ? Integer.parseInt(gridView.cycleField.getText()) : GridGui.defCycles);
                     } catch (NumberFormatException ex) {
-                        gridView.setWarningLabelText("Niepoprawny\nformat liczb\nUstawiono wartosc: "+gridView.defCycles);
+                        gridView.setWarningLabelText("Niepoprawny\nformat liczb\nUstawiono wartosc: " + GridGui.defCycles);
                         gridView.setCycles(GridGui.defCycles);
                     }
 
@@ -143,7 +144,7 @@ public class Main extends Application {
                 try {
                     gridView.setCycles(Integer.parseInt(gridView.cycleField.getText()) > 0 ? Integer.parseInt(gridView.cycleField.getText()) : GridGui.defCycles);
                 } catch (NumberFormatException ex) {
-                    gridView.setWarningLabelText("Niepoprawny\nformat liczb\nUstawiono wartosc: "+gridView.defCycles);
+                    gridView.setWarningLabelText("Niepoprawny\nformat liczb\nUstawiono wartosc: " + GridGui.defCycles);
                     gridView.setCycles(GridGui.defCycles);
                 }
 
@@ -157,12 +158,10 @@ public class Main extends Application {
                     gridView.setDelay(Integer.parseInt(gridView.delayField.getText()) >= 100 ? Integer.parseInt(gridView.delayField.getText()) : GridGui.defDelay);
 
                 } catch (NumberFormatException ex) {
-                    gridView.setWarningLabelText("Niepoprawny\nformat liczb\nUstawiono wartosc: "+gridView.defDelay);
+                    gridView.setWarningLabelText("Niepoprawny\nformat liczb\nUstawiono wartosc: " + GridGui.defDelay);
                     gridView.setDelay(GridGui.defDelay);
                 }
-            }
-            else
-            {
+            } else {
                 gridView.setWarningLabelText("");
             }
             gridView.setWarningLabelText("");
@@ -188,6 +187,9 @@ public class Main extends Application {
             boardQueue.add(gridView.getBoard());
             gridView.setBoard(Cykl.MakeACycle(gridView.getBoard()));
         }
+    }
+    public static int getScale(Board board, GridGui gui){
+        return Math.min(gui.getCanvasHeight()/board.getHeight(), gui.getCanvasWidth()/board.getWidth());
     }
 
     public static void main(String[] args) {

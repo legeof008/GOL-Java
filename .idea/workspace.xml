@@ -10,12 +10,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/GridGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/GridGui.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/UpdateCanvas.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/UpdateCanvas.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/UpdateQueTask.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/statki 8 przenikanie ścian.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/statki 8 przenikanie ścian.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/LoadSaveClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/LoadSaveClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/GridGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/GridGui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/UpdateCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/UpdateCanvas.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/statki 8 przenikanie ścian.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/statki 8 przenikanie ścian.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -14,7 +14,7 @@ public class LoadSaveClass {
      * @return zwraca File odebrany z widoku okienka
      * @throws Exception
      */
-    public File useLoader(Stage primaryStage) throws Exception {
+    public File useLoader(Stage primaryStage) throws NullPointerException {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(extensionFilter);

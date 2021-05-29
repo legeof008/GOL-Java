@@ -266,4 +266,10 @@ public abstract class Board {
             System.out.println();
         }
     }
+    public int getWidth()
+    {
+        return this.width;
+    }
+    public int getHeight()
+    {return this.height;}
 }
