@@ -7,18 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8185dcd5-e541-4747-96b6-dea61a316839" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/UpdateCanvas.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/GridGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/GridGui.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/PausableThread.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/UpdateCanvas.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/UpdateCanvas.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/java/gameOfLife/UpdateQueTask.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/statki 8 przenikanie ścian.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/statki 8 przenikanie ścian.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/Żołądź 8 stabilizujący się po 5200 krokach.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL2Java/main/resources/Żołądź 8 stabilizujący się po 5200 krokach.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/GridGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/GridGui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/PausableThread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gameOfLife/UpdateCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gameOfLife/UpdateCanvas.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/statki 8 przenikanie ścian.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/statki 8 przenikanie ścian.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Żołądź 8 stabilizujący się po 5200 krokach.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Żołądź 8 stabilizujący się po 5200 krokach.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

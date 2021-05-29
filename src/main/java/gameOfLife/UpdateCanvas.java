@@ -25,7 +25,6 @@ public class UpdateCanvas extends Task<Void> {
             if (boardQueue.isEmpty()) {
                 Main.updateQueManually(100, this.boardQueue, this.gui);
                 Thread.sleep(500);
-                System.out.println("Update kolejki");
             }
             Platform.runLater(() -> {
                 gui.draw(scale, boardQueue.remove());

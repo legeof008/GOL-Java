@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -20,6 +21,7 @@ public class GridGui extends GridPane {
     public final TextField delayField;
     public final TextField cycleField;
 
+
     private final Button nextButton;
     private final Button stopButton;
     private final Button startButton;
@@ -28,7 +30,8 @@ public class GridGui extends GridPane {
     private int cycles;
 
     public Canvas canvas;
-    private SnapshotWriter sp;
+    private Label warningLabel;
+
 
     public boolean canDraw;
     public boolean started;
@@ -36,15 +39,12 @@ public class GridGui extends GridPane {
     private Board board;
 
 
-    public final AtomicBoolean isOk;
-
 
     /**
      * Tworzy podstawowy interfejs, inicjalizuje odpowiednie metody pod odpowiednie guziki
      */
     public GridGui() {
         //Kontrolne podklasy
-        isOk = new AtomicBoolean(true);
 
 
         this.canDraw = false;
@@ -55,6 +55,8 @@ public class GridGui extends GridPane {
         this.setAlignment(Pos.CENTER);
         this.setVgap(8);
         this.setHgap(5);
+
+        this.warningLabel = new Label("");
 
         this.cycleField = new TextField();
         this.delayField = new TextField();
@@ -72,6 +74,7 @@ public class GridGui extends GridPane {
         this.add(nextButton, 1, 4);
         this.add(startButton, 3, 4);
         this.add(stopButton, 4, 4);
+        this.add(warningLabel, 2,0);
 
 
         this.canvas = new Canvas(450, 450);
@@ -117,7 +120,9 @@ public class GridGui extends GridPane {
 
         canDraw = true;
     }
-
+    public void setWarningLabelText(String s){
+        warningLabel.setText(s);
+    }
     public Board getBoard() {
         return this.board;
     }
