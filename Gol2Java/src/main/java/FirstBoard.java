@@ -4,8 +4,8 @@ import java.io.*;
 
 public class FirstBoard {
 
-    private static final int MAXHEIGHT = 1000;
-    private static final int MAXWIDTH = 1000;
+    private static final int MAXHEIGHT = 450;
+    private static final int MAXWIDTH = 450;
 
     /**
      * @param f plik z parametrami wejściowymi
