@@ -15,7 +15,7 @@ import java.util.Queue;
 
 public class Main extends Application {
     public Board board;
-    public int SCALE = 2;
+    public int SCALE = 1;
     Thread canvasThread;
     public GridGui gridView;
     public Queue<Board> boardQueue;

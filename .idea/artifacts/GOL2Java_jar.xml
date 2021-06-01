@@ -5,11 +5,11 @@
       <element id="archive" name="GOL2Java.jar">
         <element id="module-output" name="GOL2Java" />
       </element>
+      <element id="file-copy" path="$PROJECT_DIR$/lib/javafx-base-15-linux.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/lib/javafx-fxml-15-linux.jar" />
       <element id="file-copy" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-swing/11.0.1/javafx-swing-11.0.1-linux.jar" />
       <element id="file-copy" path="$PROJECT_DIR$/lib/javafx-controls-15-linux.jar" />
       <element id="file-copy" path="$PROJECT_DIR$/lib/javafx-graphics-15-linux.jar" />
-      <element id="file-copy" path="$PROJECT_DIR$/lib/javafx-fxml-15-linux.jar" />
-      <element id="file-copy" path="$PROJECT_DIR$/lib/javafx-base-15-linux.jar" />
     </root>
   </artifact>
 </component>
