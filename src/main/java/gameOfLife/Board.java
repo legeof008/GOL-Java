@@ -2,7 +2,6 @@ package main.java.gameOfLife;
 
 import java.util.ArrayList;
 import java.util.Random;
-//import javafx.util.Pair;
 
 public abstract class Board {
     protected int width;
@@ -99,47 +98,6 @@ public abstract class Board {
      * @param y     pozycja y komórki do ożywienia
      * @param board plansza z początku cyklu
      */
-    /*public void makeCellAlive(int x, int y, main.java.Board board)
-    {
-        if(board == null || board.width != width || board.height != height)
-            throw new IllegalArgumentException("wymiary planszy z początku cyklu nie są zgodne z obecną planszą");
-
-        Pair<main.java.Cell, main.java.Cell> parents = board.getParents(x, y);
-
-        int newRColor = parents.getKey().r;
-        int newGColor = parents.getKey().g;
-        int newBColor = parents.getKey().b;
-
-        int[] bitIndices = new int[3];
-
-        // Losowanie 3 losowych liczb z zakresu <0, 24> bez powtórzeń
-        Random rnd = new Random();
-        bitIndices[0] = rnd.nextInt(24);
-
-        do
-        {
-            bitIndices[1] = rnd.nextInt(24);
-        } while (bitIndices[1] == bitIndices[0]);
-
-        do
-        {
-            bitIndices[2] = rnd.nextInt(24);
-        } while (bitIndices[2] == bitIndices[1] || bitIndices[2] == bitIndices[0]);
-
-        // Dodawanie kolorów 2 rodzica do kolorów nowej komórki
-        for(int i = 0; i < 3; i++)
-        {
-            if(bitIndices[i] < 8)
-                newBColor += (main.java.Util.getBit(parents.getValue().b, bitIndices[i]) - main.java.Util.getBit(newBColor, bitIndices[i])) << bitIndices[i];
-            else if (bitIndices[i] < 16)
-                newGColor += (main.java.Util.getBit(parents.getValue().g, bitIndices[i]) - main.java.Util.getBit(newGColor, bitIndices[i])) << (bitIndices[i] % 8);
-            else
-                newRColor += (main.java.Util.getBit(parents.getValue().r, bitIndices[i]) - main.java.Util.getBit(newRColor, bitIndices[i])) << (bitIndices[i] % 8);
-        }
-
-        cells[y][x] = new main.java.Cell(newRColor, newGColor, newBColor, main.java.CellType.Alive, cells[y][x].getNeighbourCount());
-        addNeighbourParameter(x, y);
-    }*/
     public void makeCellAlive(int x, int y, Board board) {
         Cell[] parents = board.getParents(x, y);
 
@@ -175,27 +133,6 @@ public abstract class Board {
         incrementNeighbours(x, y);
     }
 
-    /*private Pair<main.java.Cell, main.java.Cell> getParents(int x, int y)
-    {
-        main.java.Cell[] neighbours = getNeighbours(x, y);
-
-        if(neighbours.length < 2)
-            throw new RuntimeException(String.format("komórka na pozycji %d, %d nie posiada 2 żywych sąsiadów", x, y));
-
-        int[] parentsIndices = new int[2];
-
-        // Losowanie 2 losowych liczb odpowiadjących indeksom rodziców
-        Random rnd = new Random();
-        parentsIndices[0] = rnd.nextInt(neighbours.length);
-
-        do
-        {
-            parentsIndices[1] = rnd.nextInt(neighbours.length);
-        } while (parentsIndices[1] == parentsIndices[0]);
-
-
-        return new Pair<main.java.Cell, main.java.Cell>(neighbours[parentsIndices[0]], neighbours[parentsIndices[1]]);
-    }*/
     private Cell[] getParents(int x, int y) {
         Cell[] neighbours = getAliveNeighbours(x, y);
 
