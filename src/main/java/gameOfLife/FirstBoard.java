@@ -169,49 +169,6 @@ public class FirstBoard {
 
         return ct;
     }
-
-//Przykładowe użycie - na moje potrzeby
-    /*
-    public static void main(String[] args) {
-
-        main.java.gameOfLife.Board b = null;
-        File f = new File("src/main/resources/data.1");
-
-        try {
-             b = main.java.gameOfLife.FirstBoard.readBoard(f);
-
-        }catch(IOException | main.java.gameOfLife.CellParametersException | main.java.gameOfLife.BoardParametersException e){
-            System.err.println(e.getLocalizedMessage());
-        }catch(NumberFormatException e){
-            System.err.println("Śmieci na wejściu");
-        }
-
-        if(b == null){
-            System.out.println("Mamy nulla");
-        }
-        else{
-            int x = 0;
-            int y = 4;
-            System.out.println("R: " + b.getCell(x,y).getR() + " G: "
-                    + b.getCell(x,y).getG() + " B: " + b.getCell(x,y).getB()
-                    + " czy żywa: " + b.getCell(x,y).isAlive() + " czy ściana: "
-                    + b.getCell(x,y).isWall());
-
-            x = 1;
-            y = 1;
-            System.out.println("R: " + b.getCell(x,y).getR() + " G: "
-                    + b.getCell(x,y).getG() + " B: " + b.getCell(x,y).getB()
-                    + " czy żywa: " + b.getCell(x,y).isAlive());
-
-            x = 1;
-            y = 0;
-            System.out.println("R: " + b.getCell(x,y).getR() + " G: "
-                    + b.getCell(x,y).getG() + " B: " + b.getCell(x,y).getB()
-                    + " czy żywa: " + b.getCell(x,y).isAlive() + " czy ściana: "
-                    + b.getCell(x,y).isWall());
-        }
-    }
-*/
 }
 
 
